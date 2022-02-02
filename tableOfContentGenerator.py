@@ -35,7 +35,12 @@ class MarkdownListFormatter:
         return f"{self.formattedOrderString()} [{trimmedString}]"
     
     def formattedLinkURL(self) -> str:
-        return self.titleString.lower().replace(" ", "-").replace(".", "")
+        shouldBdRemovedFromURL = [".", ",", "(", ")"]
+        formattedURL = self.titleString.lower().replace(" ", "-")
+        for targetCharacter in shouldBdRemovedFromURL:
+            formattedURL = formattedURL.replace(targetCharacter, "")
+        print(formattedURL)    
+        return formattedURL
 
     def formattedListString(self) -> str:
         return f"{self.formattedLinkText()}(./{self.postName}#{self.formattedLinkURL()})"
